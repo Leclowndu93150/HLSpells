@@ -2,6 +2,7 @@ package com.divinity.hlspells.loot;
 
 import com.divinity.hlspells.capabilities.spellholdercap.SpellHolderProvider;
 import com.divinity.hlspells.setup.init.LootInit;
+import com.divinity.hlspells.util.SpellUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -33,7 +34,9 @@ public class SetSpell extends LootItemConditionalFunction {
     @Override
     @NotNull
     protected ItemStack run(ItemStack pStack, @NotNull LootContext pContext) {
-        SpellHolderProvider.get(pStack).ifPresent(cap -> cap.addSpell(spell));
+        if (!SpellUtils.isSpellDisabled(SpellUtils.getSpellByID(spell))) {
+            SpellHolderProvider.get(pStack).ifPresent(cap -> cap.addSpell(spell));
+        }
         return pStack;
     }
 

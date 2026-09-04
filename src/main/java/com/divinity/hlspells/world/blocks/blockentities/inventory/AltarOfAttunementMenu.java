@@ -11,6 +11,7 @@ import com.divinity.hlspells.setup.init.SoundInit;
 import com.divinity.hlspells.setup.init.SpellInit;
 import com.divinity.hlspells.spell.Spell;
 import com.divinity.hlspells.spell.SpellAttributes;
+import com.divinity.hlspells.util.SpellUtils;
 import com.divinity.hlspells.world.blocks.blockentities.AltarOfAttunementBE;
 import com.google.common.collect.Lists;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -246,7 +247,7 @@ public class AltarOfAttunementMenu extends AbstractContainerMenu implements Cont
     private List<Spell> getSpellResultForSlot(Random pRandom, SpellAttributes.Marker spellMarker, SpellAttributes.Tier spellTier) {
         List<Spell> list = Lists.newArrayList();
         for(Spell spell : SpellInit.SPELLS_REGISTRY) {
-            if (!spell.isTreasureOnly() && spell.getSpellRarity() != SpellAttributes.Rarity.NONE) {
+            if (!spell.isTreasureOnly() && spell.getSpellRarity() != SpellAttributes.Rarity.NONE && !SpellUtils.isSpellDisabled(spell)) {
                 if (spell.getMarkerType() == spellMarker) {
                     if (spell.getSpellTier() == spellTier) {
                         list.add(spell);

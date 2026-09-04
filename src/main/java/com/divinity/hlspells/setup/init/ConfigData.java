@@ -14,6 +14,7 @@ public class ConfigData {
     public final ModConfigSpec.ConfigValue<List<? extends String>> fireMobsList;
     public final ModConfigSpec.ConfigValue<List<? extends String>> sapientMobsList;
     public final ModConfigSpec.ConfigValue<List<? extends String>> lightningSpellList;
+    public final ModConfigSpec.ConfigValue<List<? extends String>> disabledSpells;
 
 
     public ConfigData(ModConfigSpec.Builder builder) {
@@ -30,6 +31,8 @@ public class ConfigData {
                 .defineList("lightningSpellList", Lists.newArrayList(), String.class::isInstance);
         sapientMobsList = builder.comment("Lists of mobs which are immune to repel and lure spell")
                 .defineList("sapientMobsList", defaultSapientMobsList, String.class::isInstance);
+        disabledSpells = builder.comment("List of spell ids which are disabled. Disabled spells cannot be cast, transferred at the altar, rolled as loot, or picked from the creative menu")
+                .defineList("disabledSpells", Lists.newArrayList(), String.class::isInstance);
         builder.pop();
     }
 }

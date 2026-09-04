@@ -41,8 +41,16 @@ public final class SpellUtils {
         else return SpellInit.EMPTY.get();
     }
 
+    public static boolean isSpellDisabled(Spell spell) {
+        ResourceLocation id = SpellInit.SPELLS_REGISTRY.getKey(spell);
+        return id != null && HLSpells.CONFIG.disabledSpells.get().contains(id.toString());
+    }
+
     @SuppressWarnings("all")
     public static boolean canAddSpell(ItemStack item, Spell spell) {
+        if (isSpellDisabled(spell)) {
+            return false;
+        }
         if (item != ItemStack.EMPTY) {
             List<String> existingSpells = SpellHolderProvider.getSpellHolderUnwrap(item).getSpells();
             Spell currentSpell = getSpell(item);

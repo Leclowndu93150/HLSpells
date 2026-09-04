@@ -171,7 +171,7 @@ public abstract class Spell implements Cloneable {
     protected abstract SpellConsumer<Player> getAction();
 
     public final void execute(Player player, ItemStack stack) {
-        if (SpellUtils.checkXpReq(player, this) && this.getAction() != null ) {
+        if (!SpellUtils.isSpellDisabled(this) && SpellUtils.checkXpReq(player, this) && this.getAction() != null ) {
 
             this.getAction().andThenIfCast(this.onAfterExecute(this, stack)).accept(player);
 

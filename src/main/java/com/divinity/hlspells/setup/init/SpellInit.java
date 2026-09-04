@@ -5,6 +5,7 @@ import com.divinity.hlspells.capabilities.spellholdercap.SpellHolderProvider;
 import com.divinity.hlspells.spell.Spell;
 import com.divinity.hlspells.spell.SpellAttributes;
 import com.divinity.hlspells.spell.spells.*;
+import com.divinity.hlspells.util.SpellUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
@@ -114,7 +115,7 @@ public class SpellInit {
     public static void addCreative(BuildCreativeModeTabContentsEvent event){
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
             for(Spell spell : SPELLS_REGISTRY){
-                if(spell.isEmpty()){
+                if(spell.isEmpty() || SpellUtils.isSpellDisabled(spell)){
                     continue;
                 }
                 event.accept(createSpellBookFor(spell));
